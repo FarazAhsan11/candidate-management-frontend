@@ -122,6 +122,7 @@ const AddUserModal = ({ open, onClose, onUserAdded }: AddUserModalProps) => {
                             variant="outline"
                             onClick={handleClose}
                             disabled={loading}
+                            className='cursor-pointer'
                         >
                             Cancel
                         </Button>

@@ -163,6 +163,7 @@ const ChangePasswordModal = ({ open, onClose }: ChangePasswordModalProps) => {
                             variant="outline"
                             onClick={handleClose}
                             disabled={loading}
+                            className='cursor-pointer'
                         >
                             Cancel
                         </Button>

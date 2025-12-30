@@ -158,6 +158,7 @@ const EditUserModal = ({ open, onClose, onUserUpdated, user }: EditUserModalProp
                             variant="outline"
                             onClick={handleClose}
                             disabled={loading}
+                            className='cursor-pointer'
                         >
                             Cancel
                         </Button>

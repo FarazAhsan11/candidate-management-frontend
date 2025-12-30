@@ -275,10 +275,10 @@ export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
               )} />
             
             <div className="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-6">
-              <Button type="button" variant="outline" onClick={() => { form.reset(); onClose(); }} disabled={isSubmitting} className="border-gray-300 hover:bg-gray-50">
+              <Button type="button" variant="outline" onClick={() => { form.reset(); onClose(); }} disabled={isSubmitting} className="border-gray-300 hover:bg-gray-50 cursor-pointer">
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+              <Button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white shadow-sm">
                 {isSubmitting ? 'Adding...' : 'Add Candidate'}
               </Button>
             </div>

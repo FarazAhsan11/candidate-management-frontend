@@ -89,12 +89,12 @@ const AdminDashboard = () => {
                             <DropdownMenuContent align="end" className="w-56">
                                 <DropdownMenuItem onClick={() => setIsChangePasswordModalOpen(true)}>
                                     <KeyRound className="w-4 h-4 mr-2 cursor-pointer" />
-                                    Change Password
+                                    <span className='cursor-pointer'>Change Password</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                     onClick={handleLogout}
-                                    className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                                    className="text-red-600 focus:text-red-600 cursor-pointer focus:bg-red-50"
                                 >
                                     <LogOut className="w-4 h-4 mr-2 cursor-pointer" />
                                     Logout
