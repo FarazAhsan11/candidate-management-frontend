@@ -25,9 +25,8 @@ api.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             localStorage.removeItem('user');
-            if (window.location.pathname !== '/login') {
-                window.location.href = '/login';
-            }
+            // Don't redirect here - let the component handle it
+            // The AuthContext and ProtectedRoute will handle navigation
         }
         return Promise.reject(error);
     }
