@@ -1,6 +1,6 @@
 import { useAuth } from '../../context/authContext';
 import { Button } from '../../components/ui/button';
-import { LogOut, Users, FileText, Clock, UserPlus, KeyRound, MoreVertical, User, BarChart } from 'lucide-react';
+import { LogOut, Users, FileText, Clock, UserPlus, KeyRound, MoreVertical, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="flex items-center gap-2">
+                                <Button variant="outline" className="flex items-center gap-2 cursor-pointer">
                                     <User className="w-4 h-4" />
                                     <span className="text-sm font-medium">
                                         {user?.name || user?.email}
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56">
                                 <DropdownMenuItem onClick={() => setIsChangePasswordModalOpen(true)}>
-                                    <KeyRound className="w-4 h-4 mr-2" />
+                                    <KeyRound className="w-4 h-4 mr-2 cursor-pointer" />
                                     Change Password
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
                                     onClick={handleLogout}
                                     className="text-red-600 focus:text-red-600 focus:bg-red-50"
                                 >
-                                    <LogOut className="w-4 h-4 mr-2" />
+                                    <LogOut className="w-4 h-4 mr-2 cursor-pointer" />
                                     Logout
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -141,7 +141,7 @@ const AdminDashboard = () => {
                                 <Clock className="w-6 h-6 text-orange-600" />
                             </div>
                             <div>
-                                <p className="text-sm text-gray-600">Pending Reviews</p>
+                                <p className="text-sm text-gray-600">Pending Remarks</p>
                                 <p className="text-2xl font-bold text-gray-900">
                                     {loading ? '-' : stats.pendingReviews}
                                 </p>
@@ -156,7 +156,7 @@ const AdminDashboard = () => {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Button
-                            className="justify-start"
+                            className="justify-start cursor-pointer"
                             variant="outline"
                             onClick={() => setIsAddUserModalOpen(true)}
                         >
@@ -164,21 +164,15 @@ const AdminDashboard = () => {
                             Add User
                         </Button>
                         <Button
-                            className="justify-start"
+                            className="justify-start cursor-pointer"
                             variant="outline"
                             onClick={() => navigate('/admin/manage-users')}
                         >
-                            <Users className="w-4 h-4 mr-2" />
+                            <Users className="w-4 h-4 mr-2 " />
                             Manage Users
                         </Button>
-                        <Button className="justify-start" variant="outline">
-                            <FileText className="w-4 h-4 mr-2" />
-                            View All Candidates
-                        </Button>
-                        <Button className="justify-start" variant="outline">
-                            <BarChart className="w-4 h-4 mr-2" />
-                            View Analytics
-                        </Button>
+                        
+                        
                     </div>
                 </div>
             </div>

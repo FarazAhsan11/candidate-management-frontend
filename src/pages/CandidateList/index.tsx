@@ -130,7 +130,7 @@ export default function CandidateListPage() {
         <div className="flex items-center gap-3 flex-wrap w-full sm:w-auto">
           <Button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-sm px-4 py-2"
+            className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 shadow-sm px-4 py-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             Add Candidate
@@ -138,7 +138,7 @@ export default function CandidateListPage() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button variant="outline" className="flex items-center gap-2 cursor-pointer">
                 <User className="w-4 h-4" />
                 <span className="text-sm font-medium">
                   {user?.name || user?.email}
