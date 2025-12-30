@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, } from 'lucide-react';
+import { Trash2, Calendar } from 'lucide-react';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
 import { Button } from '../../components/ui/button';
@@ -124,36 +123,46 @@ export default function CandidateList({
       {activeTab === 'cards' && (
         <>
          <div>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 px-2 sm:px-0">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-2 sm:px-0">
             {candidates.map((candidate) => (
               <Card
                 key={candidate._id}
                 onClick={() => handleCardClick(candidate._id)}
-                className="bg-white my-2 sm:my-6 text-gray-900 border border-gray-200 group cursor-pointer hover:shadow-lg hover:border-blue-300 transition-all duration-200"
+                className="bg-white my-2 sm:my-6 border border-gray-200 group cursor-pointer hover:shadow-lg hover:border-blue-300 transition-all duration-200"
               >
-                <div className='flex justify-between items-start'>
-                  <CardHeader className='flex-1 p-4 sm:p-6'>
-                    <CardTitle className="text-base sm:text-lg font-semibold text-gray-900">{candidate.name}</CardTitle>
-                    <CardDescription className='text-gray-600 text-sm'>{candidate.appliedPosition}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-4 sm:p-6">
-                    <Badge className='text-xs sm:text-sm font-medium' variant={getStatusVariant(candidate.status)}>
+                <CardHeader className='p-6 pb-4'>
+                  <div className='flex justify-between items-start gap-3'>
+                    <div className='flex-1'>
+                      <CardTitle className="text-2xl font-bold text-gray-900 mb-1.5 group-hover:text-blue-600 transition-colors">
+                        {candidate.name}
+                      </CardTitle>
+                      <CardDescription className='text-gray-600 text-base font-medium'>
+                        {candidate.appliedPosition}
+                      </CardDescription>
+                    </div>
+                    <Badge className='text-sm font-semibold px-3 py-1 mt-1' variant={getStatusVariant(candidate.status)}>
                       {candidate.status}
                     </Badge>
-                  </CardContent>
-                </div>
-                <CardFooter className="justify-between text-xs sm:text-sm text-gray-600 p-4 sm:p-6 pt-0">
-                  <span className="font-medium">{candidate.experienceYears} years experience</span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteId(candidate._id);
-                    }}
-                    className="opacity-100 sm:opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-md transition-all cursor-pointer"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </CardFooter>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="px-6 py-4 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <Calendar className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm font-medium">{candidate.experienceYears} years experience</span>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteId(candidate._id);
+                      }}
+                      className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-md transition-all cursor-pointer"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </CardContent>
               </Card>
             ))}
           </div>
