@@ -63,7 +63,7 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-gray-200 max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl">
+      <DialogContent className="bg-white border-gray-200 max-w-2xl shadow-xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <MessageCircle className="text-blue-600" />

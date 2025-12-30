@@ -64,9 +64,9 @@ export default function CandidateInfo({ candidate }: Props) {
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
       <div className="bg-white rounded-xl py-5 px-2  border border-gray-200 shadow-sm flex flex-col xl:col-span-2">
       <Tabs defaultValue="resume">
-      <TabsList className="bg-gray-150 border-b border-gray-300 rounded-t-xl p-4">
-        <TabsTrigger value="resume" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm font-medium">Resume</TabsTrigger>
-        <TabsTrigger value="loom-video" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm font-medium">Loom Video</TabsTrigger>
+      <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto gap-6 justify-start">
+        <TabsTrigger value="resume" className="data-[state=active]:bg-transparent data-[state=active]:text-blue-600   rounded-none pb-3 pt-4 px-1 font-medium text-gray-600 hover:text-blue-600 transition-colors border-b-2 border-transparent">Resume</TabsTrigger>
+        <TabsTrigger value="loom-video" className="data-[state=active]:bg-transparent data-[state=active]:text-blue-600  rounded-none pb-3 pt-4 px-1 font-medium text-gray-600 hover:text-blue-600 transition-colors border-b-2 border-transparent">Loom Video</TabsTrigger>
       </TabsList>
       <TabsContent value="resume">
                 {candidate.resumeFile ? (
