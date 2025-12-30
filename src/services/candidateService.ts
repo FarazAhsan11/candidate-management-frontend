@@ -41,10 +41,13 @@ export const candidateService = {
     return response.data.candidate;
   },
 
-  update: async (id: string, data: Partial<Candidate>): Promise<Candidate> => {
-    const response = await api.patch(`/candidates/${id}`, data);
-    return response.data.candidate;
-  },
+  update: async (id: string, data: FormData): Promise<Candidate> => {
+  const response = await api.patch(`/candidates/${id}`, data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data.candidate;
+},
+
 
   delete: async (id: string): Promise<{ message: string }> => {
     const response = await api.delete(`/candidates/${id}`);

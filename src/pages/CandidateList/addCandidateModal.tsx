@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
+import {type Candidate } from '@/types/candidate';
 import {
   Sheet,
   SheetContent,
@@ -56,11 +57,13 @@ type CandidateFormData = z.infer<typeof candidateSchema>;
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: FormData) => Promise<void>;
+  onSubmit: (data: FormData, candidateId?: string) => Promise<void>;
+  candidate?: Candidate | null;
 }
 
-export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
+export default function AddCandidateModal({ open, onClose, onSubmit, candidate }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isEditMode = !!candidate;
 
   const form = useForm<CandidateFormData>({
     resolver: zodResolver(candidateSchema) as any,
@@ -87,6 +90,54 @@ export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
     },
   });
 
+  useEffect(() => {
+    if (candidate) {
+      form.reset({
+        name: candidate.name,
+        email: candidate.email,
+        phone: candidate.phone,
+        city: candidate.city,
+        institute: candidate.institute,
+        educationLevel: candidate.educationLevel as 'Bachelor' | 'Master' | 'PhD' | 'Other',
+        graduationYear: candidate.graduationYear,
+        currentPosition: candidate.currentPosition,
+        currentCompany: candidate.currentCompany,
+        experienceYears: candidate.experienceYears,
+        noticePeriod: candidate.noticePeriod,
+        reasonToSwitch: candidate.reasonToSwitch,
+        currentSalary: candidate.currentSalary,
+        expectedSalary: candidate.expectedSalary,
+        expectedSalaryPartTime: candidate.expectedSalaryPartTime,
+        appliedPosition: candidate.appliedPosition,
+        loomLink: candidate.loomLink || '',
+        hrRemarks: candidate.hrRemarks || '',
+        interviewerRemarks: candidate.interviewerRemarks || '',
+      });
+    } else {
+      form.reset({
+        name: '',
+        email: '',
+        phone: '',
+        city: '',
+        institute: '',
+        educationLevel: 'Bachelor',
+        graduationYear: new Date().getFullYear(),
+        currentPosition: '',
+        currentCompany: '',
+        experienceYears: 0,
+        noticePeriod: '',
+        reasonToSwitch: '',
+        currentSalary: 0,
+        expectedSalary: 0,
+        expectedSalaryPartTime: 0,
+        appliedPosition: '',
+        loomLink: '',
+        hrRemarks: '',
+        interviewerRemarks: '',
+      });
+    }
+  }, [candidate]);
+
   const handleSubmit = async (data: CandidateFormData) => {
     setIsSubmitting(true);
     try {
@@ -100,7 +151,7 @@ export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
       if (resumeInput?.files?.[0]) {
         formData.append('resume', resumeInput.files[0]);
       }
-      await onSubmit(formData);
+      await onSubmit(formData, candidate?._id);
       form.reset();
       if (resumeInput) {
         resumeInput.value = '';
@@ -117,7 +168,7 @@ export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
 
       <SheetContent side="right" className="w-full text-gray-900 bg-white border-l border-gray-200 sm:max-w-3xl overflow-y-auto pb-4">
         <SheetHeader>
-          <SheetTitle className='px-4 font-bold text-2xl text-gray-900'>Add New Candidate</SheetTitle>
+          <SheetTitle>{isEditMode ? 'Edit Candidate' : 'Add New Candidate'}</SheetTitle>
         </SheetHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 mt-2 px-8">
@@ -279,7 +330,7 @@ export default function AddCandidateModal({ open, onClose, onSubmit }: Props) {
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white shadow-sm">
-                {isSubmitting ? 'Adding...' : 'Add Candidate'}
+                {isSubmitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Candidate' : 'Add Candidate')}
               </Button>
             </div>
           </form>

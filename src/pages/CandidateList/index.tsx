@@ -43,6 +43,9 @@ export default function CandidateListPage() {
   const [experience, setExperience] = useState('All');
   const [sortBy, setSortBy] = useState('date-desc');
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Edit Candidate State
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate|null>(null);
   
   const debouncedSearch = useDebounce(search, 500);
 
@@ -80,17 +83,30 @@ export default function CandidateListPage() {
     setCurrentPage(1);
   }, [debouncedSearch, position, status, experience, sortBy]);
 
-  const handleAddCandidate = async (formData: FormData) => {
+  const handleAddCandidate = async (formData: FormData, candidateId?:string) => {
     try {
-      await candidateService.create(formData);
+      if(candidateId){
+        await candidateService.update(candidateId,formData);
+        toast.success('Candidate Updated Successfully!')
+      }
+      else{
+        await candidateService.create(formData);
+        toast.success('Candidate added successfully!');
+
+      }
+      
       setIsModalOpen(false);
-      toast.success('Candidate added successfully!');
+      setSelectedCandidate(null);
       fetchCandidates();
     } catch (err) {
-      toast.error('Failed to add candidate.');
+      toast.error(candidateId ? 'Failed to update candidate.' : 'Failed to add candidate.');
     }
   };
-
+  const handleEdit = (candidate:Candidate)=>{
+    setSelectedCandidate(candidate);
+    setIsModalOpen(true);
+  }
+  
   const handleDelete = async (id: string) => {
     try {
       await candidateService.delete(id);
@@ -184,18 +200,24 @@ export default function CandidateListPage() {
       />
 
       <CandidateList
+        
         candidates={candidates}
         onDelete={handleDelete}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         loading={loading}
+        onEdit={handleEdit}
       />
 
       <AddCandidateModal
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedCandidate(null);
+        }}
         onSubmit={handleAddCandidate}
+        candidate={selectedCandidate}
       />
 
       <ChangePasswordModal
