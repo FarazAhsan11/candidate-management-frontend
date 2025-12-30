@@ -44,11 +44,12 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
   const handleSave = async () => {
     try {
       setSaving(true);
-      const updated = await candidateService.update(candidate._id, {
+      const updateData: Partial<Candidate> = {
         hrRemarks,
         interviewerRemarks,
         status,
-      });
+      };
+      const updated = await candidateService.update(candidate._id, updateData);
       onUpdate(updated);
       toast.success("Remarks updated successfully");
       onOpenChange(false);
