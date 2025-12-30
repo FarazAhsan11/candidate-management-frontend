@@ -41,9 +41,10 @@ export const candidateService = {
     return response.data.candidate;
   },
 
-  update: async (id: string, data: FormData): Promise<Candidate> => {
+  update: async (id: string, data: FormData | Partial<Candidate>): Promise<Candidate> => {
+  const isFormData = data instanceof FormData;
   const response = await api.patch(`/candidates/${id}`, data, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
   });
   return response.data.candidate;
 },
