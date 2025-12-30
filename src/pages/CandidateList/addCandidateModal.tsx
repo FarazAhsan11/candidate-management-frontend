@@ -213,7 +213,7 @@ export default function AddCandidateModal({ open, onClose, onSubmit, candidate }
                   <FormLabel className="font-semibold text-gray-700">Education Level*</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger><SelectValue placeholder="Select level" /></SelectTrigger>
+                      <SelectTrigger className="w-full border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"><SelectValue placeholder="Select level" /></SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="Bachelor">Bachelor</SelectItem>
@@ -289,8 +289,8 @@ export default function AddCandidateModal({ open, onClose, onSubmit, candidate }
                 </FormItem>
               )} />
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700">Resume</label>
-                <Input className='border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200' id="resume" type="file" accept=".pdf" />
+                <label className="text-sm font-semibold  text-gray-700">Resume</label>
+                <Input className='border-gray-300 focus:border-blue-500 cursor-pointer focus:ring-2 focus:ring-blue-200' id="resume" type="file" accept=".pdf" />
               </div>
             <FormField control={form.control} name="reasonToSwitch" render={({ field }) => (
               <FormItem className='col-span-full'>
