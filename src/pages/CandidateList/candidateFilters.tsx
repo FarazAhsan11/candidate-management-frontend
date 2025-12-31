@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Filter, X } from 'lucide-react';
 import {
   Select,
@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import type { CandidateFiltersProps } from '@/types';
+
 
 const statuses = ['All', 'New', 'Screening', 'Interviewed', 'Pass', 'Fail', 'On Hold'];
 const experienceRanges = ['All', '0-2', '3-5', '6+'];
@@ -21,7 +22,7 @@ const sortOptions = [
   { value: 'experience-asc', label: 'Experience (Low-High)' },
 ];
 
-export default function CandidateFilters({
+  function CandidateFilters({
   search,
   position,
   status,
@@ -35,6 +36,8 @@ export default function CandidateFilters({
   onSortChange,
 }: CandidateFiltersProps) {
   const [showFilters, setShowFilters] = useState(false);
+  console.log("Rendered ", "CandidateFilters")
+
 
   return (
     <div className="mb-6 px-2 sm:px-0">
@@ -111,3 +114,34 @@ export default function CandidateFilters({
     </div>
   );
 }
+
+export default memo(CandidateFilters, (prevProps, nextProps) => {
+  if (
+    prevProps.search !== nextProps.search ||
+    prevProps.position !== nextProps.position ||
+    prevProps.status !== nextProps.status ||
+    prevProps.experience !== nextProps.experience ||
+    prevProps.sortBy !== nextProps.sortBy
+  ) {
+    return false; 
+  }
+
+  if (prevProps.positions.length !== nextProps.positions.length) {
+    return false; 
+  }
+
+  for (let i = 0; i < prevProps.positions.length; i++) {
+    if (prevProps.positions[i] !== nextProps.positions[i]) {
+      return false; 
+    }
+  }
+
+ 
+  return (
+    prevProps.onSearchChange === nextProps.onSearchChange &&
+    prevProps.onPositionChange === nextProps.onPositionChange &&
+    prevProps.onStatusChange === nextProps.onStatusChange &&
+    prevProps.onExperienceChange === nextProps.onExperienceChange &&
+    prevProps.onSortChange === nextProps.onSortChange
+  );
+});

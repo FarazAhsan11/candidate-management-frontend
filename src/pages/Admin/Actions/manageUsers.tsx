@@ -16,14 +16,8 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import LoadingSpinner from '@/components/loading-spinner';
+import type { User } from '@/types/admin';
 
-interface User {
-    _id: string;
-    name: string;
-    email: string;
-    role: 'user' | 'admin' | 'hr' | 'interviewer';
-    createdAt: string;
-}
 
 const ManageUsers = () => {
     const navigate = useNavigate();

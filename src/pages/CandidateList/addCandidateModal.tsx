@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -55,10 +55,11 @@ const candidateSchema = z.object({
 
 type CandidateFormData = z.infer<typeof candidateSchema>;
 
-export default function AddCandidateModal({ open, onClose, onSubmit, candidate }: AddCandidateModalProps) {
+  function AddCandidateModal({ open, onClose, onSubmit, candidate }: AddCandidateModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditMode = !!candidate;
   const {user} = useAuth();
+  console.log("Rendered ", "AddCandidateModal")
 
   const form = useForm<CandidateFormData>({
     resolver: zodResolver(candidateSchema) as any,
@@ -343,3 +344,16 @@ export default function AddCandidateModal({ open, onClose, onSubmit, candidate }
     </Sheet>
   );
 }
+
+export default memo(AddCandidateModal, (prevProps, nextProps) => {
+  if (!prevProps.open && !nextProps.open) {
+    return true; 
+  }
+  
+  return (
+    prevProps.open === nextProps.open &&
+    prevProps.candidate === nextProps.candidate &&
+    prevProps.onClose === nextProps.onClose &&
+    prevProps.onSubmit === nextProps.onSubmit
+  );
+});

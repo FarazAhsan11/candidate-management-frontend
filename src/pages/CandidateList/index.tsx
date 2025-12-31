@@ -84,7 +84,7 @@ export default function CandidateListPage() {
     setCurrentPage(1);
   }, [debouncedSearch, position, status, experience, sortBy]);
 
-  const handleAddCandidate = async (formData: FormData, candidateId?:string) => {
+  const handleAddCandidate = useCallback(async (formData: FormData, candidateId?:string) => {
     try {
       if(candidateId){
         await candidateService.update(candidateId,formData);
@@ -102,13 +102,14 @@ export default function CandidateListPage() {
     } catch (err) {
       toast.error(candidateId ? 'Failed to update candidate.' : 'Failed to add candidate.');
     }
-  };
-  const handleEdit = (candidate:Candidate)=>{
+  }, [fetchCandidates]);
+
+  const handleEdit = useCallback((candidate:Candidate)=>{
     setSelectedCandidate(candidate);
     setIsModalOpen(true);
-  }
-  
-  const handleDelete = async (id: string) => {
+  }, []);
+
+  const handleDelete = useCallback(async (id: string) => {
     try {
       await candidateService.delete(id);
       toast.success('Candidate deleted successfully!');
@@ -116,7 +117,12 @@ export default function CandidateListPage() {
     } catch (err) {
       toast.error('Failed to delete candidate.');
     }
-  };
+  }, [fetchCandidates]);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedCandidate(null);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -205,10 +211,7 @@ export default function CandidateListPage() {
 
       <AddCandidateModal
         open={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setSelectedCandidate(null);
-        }}
+        onClose={handleCloseModal}
         onSubmit={handleAddCandidate}
         candidate={selectedCandidate}
       />
