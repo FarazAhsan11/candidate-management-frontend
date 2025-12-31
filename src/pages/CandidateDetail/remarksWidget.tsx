@@ -63,22 +63,22 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-gray-200 max-w-2xl shadow-xl">
+      <DialogContent className="bg-white border-gray-200 shadow-xl sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <MessageCircle className="text-blue-600" />
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <MessageCircle className="text-blue-600 w-5 h-5 sm:w-6 sm:h-6" />
             REMARKS & STATUS
           </DialogTitle>
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="text-sm sm:text-base text-gray-600">
             Add or update remarks and status for <span className="font-semibold text-gray-900">{candidate.name}</span>
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-5 mt-4">
+        <div className="space-y-4 sm:space-y-5 mt-3 sm:mt-4">
           <div>
-            <label className="block text-gray-700 text-sm font-semibold mb-2">Added by</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Added by</label>
             <Select value={role} onValueChange={(value) => setRole(value as 'HR' | 'Interviewer')}>
-              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base h-9 sm:h-10">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent position="popper" className="bg-white border-gray-200">
@@ -86,7 +86,7 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
                   <SelectItem
                     key={opt}
                     value={opt}
-                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer"
+                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer text-sm sm:text-base"
                   >
                     {opt}
                   </SelectItem>
@@ -96,12 +96,12 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-semibold mb-2">HR Remarks</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">HR Remarks</label>
             <textarea
               value={hrRemarks}
               onChange={(e) => setHrRemarks(e.target.value)}
               disabled={role !== 'HR'}
-              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-3 min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all ${
+              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base ${
                 role !== 'HR' ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''
               }`}
               placeholder="Enter HR remarks..."
@@ -109,12 +109,12 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-semibold mb-2">Interviewer Remarks</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Interviewer Remarks</label>
             <textarea
               value={interviewerRemarks}
               onChange={(e) => setInterviewerRemarks(e.target.value)}
               disabled={role !== 'Interviewer'}
-              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-3 min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all ${
+              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base ${
                 role !== 'Interviewer' ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''
               }`}
               placeholder="Enter interviewer remarks..."
@@ -122,9 +122,9 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
           </div>
 
           <div>
-            <label className="block text-gray-700 text-sm font-semibold mb-2">Status</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Status</label>
             <Select value={status} onValueChange={(value) => setStatus(value as Candidate['status'])}>
-              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base h-9 sm:h-10">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent position="popper" className="bg-white border-gray-200">
@@ -132,7 +132,7 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
                   <SelectItem
                     key={opt}
                     value={opt}
-                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer"
+                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer text-sm sm:text-base"
                   >
                     {opt}
                   </SelectItem>
@@ -141,17 +141,17 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
             </Select>
           </div>
 
-          <div className="flex gap-3 pt-4 border-t border-gray-200">
+          <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-200">
             <button
               onClick={() => onOpenChange(false)}
-              className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2.5 rounded-lg cursor-pointer transition-colors"
+              className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 sm:py-2.5 rounded-lg cursor-pointer transition-colors text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 sm:py-2.5 rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm text-sm sm:text-base"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>

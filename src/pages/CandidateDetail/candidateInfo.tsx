@@ -61,7 +61,7 @@ export default function CandidateInfo({ candidate }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 h-full">
       <div className="bg-white rounded-xl py-5 px-2  border border-gray-200 shadow-sm flex flex-col xl:col-span-2">
       <Tabs defaultValue="resume">
       <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto gap-6 justify-start">
