@@ -1,4 +1,4 @@
-import type { Candidate } from "../../types/candidate";
+import type { Candidate } from "@/types/candidate";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -13,15 +13,15 @@ import {
   Wallet,
   Download,
 } from "lucide-react";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../components/ui/tabs"
-import InfoCard from "../../components/infoCard";
-import InfoRow from "../../components/infoRow";
+} from "@/components/ui/tabs"
+import InfoCard from "@/components/info-card";
+import InfoRow from "@/components/info-row";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;

@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import {type Candidate } from '@/types/candidate';
+import { type Candidate } from '@/types/candidate';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from '../../components/ui/sheet';
+} from '@/components/ui/sheet';
 import {
   Form,
   FormControl,
@@ -17,17 +17,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../components/ui/form';
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../components/ui/select';
-import { Textarea } from '../../components/ui/textarea';
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/context/authContext';
 
 const candidateSchema = z.object({

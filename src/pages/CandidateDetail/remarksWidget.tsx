@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { candidateService } from "../../services/candidateService";
-import type { Candidate } from "../../types/candidate";
+import { candidateService } from "@/services/candidateService";
+import type { Candidate } from "@/types/candidate";
 import { MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/context/authContext";

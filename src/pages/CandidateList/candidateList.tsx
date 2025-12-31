@@ -7,9 +7,9 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "../../components/ui/card";
-import { Badge } from "../../components/ui/badge";
-import { Button } from "../../components/ui/button";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,10 +19,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../../components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog";
 import { IdCard, Table as TableIcon } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs";
-import type { Candidate } from "../../types/candidate";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { Candidate } from "@/types/candidate";
 import {
   Table,
   TableBody,

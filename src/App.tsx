@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/authContext';
-import CandidateList from './pages/CandidateList';
-import CandidateDetail from './pages/CandidateDetail';
-import Login from './pages/Login/login';
-import AdminDashboard from './pages/Admin/adminDashboard';
-import ManageUsers from './pages/Admin/Actions/manageUsers';
-import ProtectedRoute from './components/protectedRoute';
-import AdminRoute from './components/adminRoute';
-import { Toaster } from './components/ui/sonner';
-import NotFound from './pages/NotFound/notFound';
+import { AuthProvider } from '@/context/authContext';
+import CandidateList from '@/pages/CandidateList';
+import CandidateDetail from '@/pages/CandidateDetail';
+import Login from '@/pages/Login/login';
+import AdminDashboard from '@/pages/Admin/adminDashboard';
+import ManageUsers from '@/pages/Admin/Actions/manageUsers';
+import ProtectedRoute from '@/routes/protected-route';
+import AdminRoute from '@/routes/admin-route';
+import { Toaster } from '@/components/ui/sonner';
+import NotFound from '@/pages/NotFound/notFound';
 
 function App() {
   return (

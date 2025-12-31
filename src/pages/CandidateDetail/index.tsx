@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
-import { candidateService } from '../../services/candidateService';
-import type { Candidate } from '../../types/candidate';
+import { candidateService } from '@/services/candidateService';
+import type { Candidate } from '@/types/candidate';
 import CandidateInfo from './candidateInfo';
 import RemarksWidget from './remarksWidget';
-import { Button } from '../../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function CandidateDetail() {
   const { id } = useParams<{ id: string }>();

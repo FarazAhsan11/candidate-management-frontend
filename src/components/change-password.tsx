@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { toast } from 'sonner';
-import api from '../services/api';
+import api from '@/services/api';
 import { Eye, EyeOff } from 'lucide-react';
 
 interface ChangePasswordModalProps {

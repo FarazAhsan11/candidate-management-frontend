@@ -1,23 +1,23 @@
 import { useEffect, useState, useCallback } from 'react';
 import { toast } from 'sonner';
-import { candidateService } from '../../services/candidateService';
-import type { CandidateResponse } from '../../services/candidateService';
-import type { Candidate } from '../../types/candidate';
+import { candidateService } from '@/services/candidateService';
+import type { CandidateResponse } from '@/services/candidateService';
+import type { Candidate } from '@/types/candidate';
 import CandidateList from './candidateList';
 import CandidateFilters from './candidateFilters';
 import AddCandidateModal from './addCandidateModal';
-import { Button } from '../../components/ui/button';
-import { useDebounce } from '../../hooks/useDebounce';
-import { useAuth } from '../../context/authContext';
+import { Button } from '@/components/ui/button';
+import { useDebounce } from '@/hooks/useDebounce';
+import { useAuth } from '@/context/authContext';
 import { LogOut, User, Plus, KeyRound, MoreVertical } from 'lucide-react';
-import ChangePasswordModal from '../../components/changePassword';
+import ChangePasswordModal from '@/components/change-password';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 const ITEMS_PER_PAGE = 12;
 

@@ -1,19 +1,19 @@
-import { useAuth } from '../../context/authContext';
-import { Button } from '../../components/ui/button';
+import { useAuth } from '@/context/authContext';
+import { Button } from '@/components/ui/button';
 import { LogOut, Users, FileText, Clock, UserPlus, KeyRound, MoreVertical, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { adminService } from '../../services/adminService';
+import { adminService } from '@/services/adminService';
 import AddUserModal from './Actions/addUser';
-import ChangePasswordModal from '../../components/changePassword';
+import ChangePasswordModal from '@/components/change-password';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 interface AdminStats {
     totalUsers: number;
