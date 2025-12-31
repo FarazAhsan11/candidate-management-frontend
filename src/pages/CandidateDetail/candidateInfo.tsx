@@ -154,17 +154,17 @@ export default function CandidateInfo({ candidate }: Props) {
             <InfoRow label="City" value={candidate.city} />
           </InfoCard>
 
-          <InfoCard title="EDUCATION" icon={<FileUser />}>
-            <InfoRow label="Institute" value={candidate.institute} />
-            <InfoRow label="Degree" value={candidate.educationLevel} />
-            <InfoRow label="Year" value={candidate.graduationYear} />
-          </InfoCard>
-
-          <InfoCard title="PROFESSIONAL" icon={<BriefcaseBusiness />}>
+                  <InfoCard title="PROFESSIONAL" icon={<BriefcaseBusiness />}>
             <InfoRow label="Current" value={candidate.currentPosition} />
             <InfoRow label="Company" value={candidate.currentCompany} />
             <InfoRow label="Experience" value={`${candidate.experienceYears} years`} />
             <InfoRow label="Notice" value={candidate.noticePeriod} />
+          </InfoCard>
+
+          <InfoCard title="EDUCATION" icon={<FileUser />}>
+            <InfoRow label="Institute" value={candidate.institute} />
+            <InfoRow label="Degree" value={candidate.educationLevel} />
+            <InfoRow label="Year" value={candidate.graduationYear} />
           </InfoCard>
 
           <InfoCard title="COMPENSATION" icon={<Wallet />}>

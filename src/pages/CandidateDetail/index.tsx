@@ -67,9 +67,6 @@ export default function CandidateDetail() {
             >
               <ArrowLeft size={20} />
             </button>
-            <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
-              {candidate.name} - {candidate.appliedPosition}
-            </h1>
           </div>
 
           <Button
