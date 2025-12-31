@@ -1,7 +1,4 @@
-interface InfoRowProps {
-  label: string;
-  value: string | number;
-}
+import type { InfoRowProps } from '@/types';
 
 export default function InfoRow({ label, value }: InfoRowProps) {
   return (

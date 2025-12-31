@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { IdCard, Table as TableIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { Candidate } from "@/types/candidate";
+import type { CandidateListProps } from "@/types";
 import {
   Table,
   TableBody,
@@ -45,16 +45,6 @@ const getStatusVariant = (status: string) => {
   }
 };
 
-interface Props {
-  candidates: Candidate[];
-  onDelete: (id: string) => void;
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  loading?: boolean;
-  onEdit: (candidate: Candidate) => void;
-}
-
 export default function CandidateList({
   candidates,
   onDelete,
@@ -63,7 +53,7 @@ export default function CandidateList({
   onPageChange,
   onEdit,
   loading = false,
-}: Props) {
+}: CandidateListProps) {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"cards" | "table">("table");
   const navigate = useNavigate();

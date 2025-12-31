@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { candidateService } from "@/services/candidateService";
-import type { Candidate } from "@/types/candidate";
+import type { Candidate, RemarksWidgetProps } from "@/types";
 import { MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/context/authContext";
@@ -15,13 +15,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-interface Props {
-  candidate: Candidate;
-  onUpdate: (updated: Candidate) => void;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
 const statusOptions = [
   "New",
   "Screening",
@@ -30,12 +23,13 @@ const statusOptions = [
   "Fail",
   "On Hold",
 ] as const;
+
 export default function RemarksWidget({
   candidate,
   onUpdate,
   open,
   onOpenChange,
-}: Props) {
+}: RemarksWidgetProps) {
   const [hrRemarks, setHrRemarks] = useState(candidate.hrRemarks || "");
   const [interviewerRemarks, setInterviewerRemarks] = useState(
     candidate.interviewerRemarks || ""

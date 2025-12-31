@@ -1,4 +1,4 @@
-import type { Candidate } from "@/types/candidate";
+import type { CandidateInfoProps } from "@/types";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -26,11 +26,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-interface Props {
-  candidate: Candidate;
-}
-
-export default function CandidateInfo({ candidate }: Props) {
+export default function CandidateInfo({ candidate }: CandidateInfoProps) {
   const [pdfWidth, setPdfWidth] = useState(400);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const {user} = useAuth();

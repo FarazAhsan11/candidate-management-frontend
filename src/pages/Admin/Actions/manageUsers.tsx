@@ -15,6 +15,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import LoadingSpinner from '@/components/loading-spinner';
 
 interface User {
     _id: string;
@@ -102,7 +103,7 @@ const ManageUsers = () => {
     if (loading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-gray-700">Loading users...</div>
+                <LoadingSpinner/>
             </div>
         );
     }

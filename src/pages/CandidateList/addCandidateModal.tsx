@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { type Candidate } from '@/types/candidate';
+import type { AddCandidateModalProps } from '@/types';
 import {
   Sheet,
   SheetContent,
@@ -55,14 +55,7 @@ const candidateSchema = z.object({
 
 type CandidateFormData = z.infer<typeof candidateSchema>;
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (data: FormData, candidateId?: string) => Promise<void>;
-  candidate?: Candidate | null;
-}
-
-export default function AddCandidateModal({ open, onClose, onSubmit, candidate }: Props) {
+export default function AddCandidateModal({ open, onClose, onSubmit, candidate }: AddCandidateModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditMode = !!candidate;
   const {user} = useAuth();

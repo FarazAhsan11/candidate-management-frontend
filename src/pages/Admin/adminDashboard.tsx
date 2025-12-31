@@ -14,12 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-interface AdminStats {
-    totalUsers: number;
-    totalCandidates: number;
-    pendingReviews: number;
-}
+import type { AdminStats } from '@/types';
 
 const AdminDashboard = () => {
     const { user, logout } = useAuth();

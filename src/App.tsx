@@ -9,12 +9,14 @@ import ProtectedRoute from '@/routes/protected-route';
 import AdminRoute from '@/routes/admin-route';
 import { Toaster } from '@/components/ui/sonner';
 import NotFound from '@/pages/NotFound/notFound';
+import ErrorBoundary from '@/components/error-boundary';
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
           <Route path="/login" element={<Login />} />
           
           <Route
@@ -56,6 +58,7 @@ function App() {
         <Toaster />
       </AuthProvider>
     </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

@@ -6,11 +6,7 @@ import { Label } from './ui/label';
 import { toast } from 'sonner';
 import api from '@/services/api';
 import { Eye, EyeOff } from 'lucide-react';
-
-interface ChangePasswordModalProps {
-    open: boolean;
-    onClose: () => void;
-}
+import type { ChangePasswordModalProps } from '@/types';
 
 const ChangePasswordModal = ({ open, onClose }: ChangePasswordModalProps) => {
     const [formData, setFormData] = useState({

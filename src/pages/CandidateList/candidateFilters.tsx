@@ -8,20 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-
-interface FiltersProps {
-  search: string;
-  position: string;
-  status: string;
-  experience: string;
-  positions: string[];
-  sortBy: string;
-  onSearchChange: (value: string) => void;
-  onPositionChange: (value: string) => void;
-  onStatusChange: (value: string) => void;
-  onExperienceChange: (value: string) => void;
-  onSortChange: (value: string) => void;
-}
+import type { CandidateFiltersProps } from '@/types';
 
 const statuses = ['All', 'New', 'Screening', 'Interviewed', 'Pass', 'Fail', 'On Hold'];
 const experienceRanges = ['All', '0-2', '3-5', '6+'];
@@ -46,7 +33,7 @@ export default function CandidateFilters({
   onStatusChange,
   onExperienceChange,
   onSortChange,
-}: FiltersProps) {
+}: CandidateFiltersProps) {
   const [showFilters, setShowFilters] = useState(false);
 
   return (

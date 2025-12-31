@@ -6,20 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { adminService } from '@/services/adminService';
-
-interface User {
-    _id: string;
-    name: string;
-    email: string;
-    role: 'user' | 'admin' | 'hr' | 'interviewer';
-}
-
-interface EditUserModalProps {
-    open: boolean;
-    onClose: () => void;
-    onUserUpdated: () => void;
-    user: User | null;
-}
+import type { EditUserModalProps } from '@/types';
 
 const EditUserModal = ({ open, onClose, onUserUpdated, user }: EditUserModalProps) => {
     const [formData, setFormData] = useState({

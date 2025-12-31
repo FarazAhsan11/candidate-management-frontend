@@ -1,10 +1,4 @@
-import {type ReactNode } from "react";
-
-interface InfoCardProps {
-  title: string;
-  icon: ReactNode;
-  children: ReactNode;
-}
+import type { InfoCardProps } from '@/types';
 
 export default function InfoCard({ title, icon, children }: InfoCardProps) {
   return (
