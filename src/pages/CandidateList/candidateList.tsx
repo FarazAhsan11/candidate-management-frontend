@@ -224,13 +224,13 @@ export default function CandidateList({
               <th className="text-white font-semibold text-left pl-4 py-3 w-[20%]">
                 Name
               </th>
-              <th className="text-white font-semibold text-left py-3 w-[25%]">
+              <th className="text-white font-semibold text-left py-3  w-[25%]">
                 Position
               </th>
               <th className="text-white font-semibold text-left py-3 w-[20%]">
                 Status
               </th>
-              <th className="text-white font-semibold text-left py-3 w-[20%]">
+              <th className="text-white font-semibold text-left py-3  w-[20%]">
                 Experience
               </th>
               <th className="text-white font-semibold text-right pr-4 py-3 w-[15%]">
