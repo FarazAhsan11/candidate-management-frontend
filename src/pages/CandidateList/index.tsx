@@ -157,10 +157,10 @@ export default function CandidateListPage() {
               <Button variant="outline" className="flex items-center gap-2 cursor-pointer">
                 <User className="w-4 h-4" />
                 <span className="text-sm font-medium">
-                  {user?.name || user?.email}
+                  {user?.name}
                 </span>
                 {user?.role === 'admin' && (
-                  <span className="px-2 py-0.5 text-xs font-semibold bg-blue-600 text-white rounded">
+                  <span className="px-2 py-0.5 text-xs cursor-pointer font-semibold bg-blue-600 text-white rounded">
                     Admin
                   </span>
                 )}
@@ -170,7 +170,7 @@ export default function CandidateListPage() {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem onClick={() => setIsChangePasswordModalOpen(true)}>
                 <KeyRound className="w-4 h-4 mr-2" />
-                Change Password
+                <span className='cursor-pointer w-full'>Change Password</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -178,7 +178,7 @@ export default function CandidateListPage() {
                 className="text-red-600 focus:text-red-600 focus:bg-red-50"
               >
                 <LogOut className="w-4 h-4 mr-2" />
-                Logout
+                <span className='w-full cursor-pointer'>Logout</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

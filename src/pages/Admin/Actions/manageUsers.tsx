@@ -116,7 +116,7 @@ const ManageUsers = () => {
                             variant="outline"
                             size="sm"
                             onClick={() => navigate('/admin/dashboard')}
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 cursor-pointer"
                         >
                             <ArrowLeft className="w-4 h-4" />
                         </Button>
@@ -158,7 +158,7 @@ const ManageUsers = () => {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
+                                <tbody className="bg-white divide-gray-200">
                                     {users.map((user) => (
                                         <tr key={user._id} className="hover:bg-gray-50">
                                             <td className="px-6 py-4 whitespace-nowrap">
@@ -188,7 +188,7 @@ const ManageUsers = () => {
                                                         variant="outline"
                                                         size="sm"
                                                         onClick={() => setEditUser(user)}
-                                                        className="flex items-center gap-1"
+                                                        className="flex items-center cursor-pointer gap-1"
                                                     >
                                                         <Edit className="w-3.5 h-3.5" />
                                                         Edit
@@ -198,7 +198,7 @@ const ManageUsers = () => {
                                                         size="sm"
                                                         onClick={() => setDeleteUserId(user._id)}
                                                         disabled={deletingUserId === user._id}
-                                                        className="flex items-center gap-1 border-red-300 text-red-600 hover:bg-red-50"
+                                                        className="flex items-center gap-1 cursor-pointer border-red-300 text-red-600 hover:bg-red-50"
                                                     >
                                                         <Trash2 className="w-3.5 h-3.5" />
                                                         {deletingUserId === user._id ? 'Deleting...' : 'Delete'}
@@ -213,9 +213,7 @@ const ManageUsers = () => {
                     )}
                 </div>
 
-                <div className="mt-4 text-sm text-gray-600">
-                    Total Users: <span className="font-semibold">{users.length}</span>
-                </div>
+               
             </div>
 
             <EditUserModal
@@ -235,11 +233,11 @@ const ManageUsers = () => {
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={!!deletingUserId}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel className='cursor-pointer' disabled={!!deletingUserId}>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDeleteUser}
                             disabled={!!deletingUserId}
-                            className="bg-red-600 hover:bg-red-700"
+                            className="bg-red-600 cursor-pointer hover:bg-red-700"
                         >
                             {deletingUserId ? 'Deleting...' : 'Delete'}
                         </AlertDialogAction>

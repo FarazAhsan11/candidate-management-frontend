@@ -3,13 +3,10 @@ import { candidateService } from '../../services/candidateService';
 import type { Candidate } from '../../types/candidate';
 import { MessageCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useAuth } from '@/context/authContext';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+
 import {
   Dialog,
   DialogContent,
@@ -26,14 +23,12 @@ interface Props {
 }
 
 const statusOptions = ['New', 'Screening', 'Interviewed', 'Pass', 'Fail', 'On Hold'] as const;
-const roleOptions = ['HR', 'Interviewer'] as const;
-
 export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange }: Props) {
-  const [role, setRole] = useState<'HR' | 'Interviewer'>('HR');
   const [hrRemarks, setHrRemarks] = useState(candidate.hrRemarks || '');
   const [interviewerRemarks, setInterviewerRemarks] = useState(candidate.interviewerRemarks || '');
   const [status, setStatus] = useState(candidate.status);
   const [saving, setSaving] = useState(false);
+  const {user} = useAuth();
 
   useEffect(() => {
     setHrRemarks(candidate.hrRemarks || '');
@@ -75,71 +70,61 @@ export default function RemarksWidget({ candidate, onUpdate, open, onOpenChange 
         </DialogHeader>
 
         <div className="space-y-4 sm:space-y-5 mt-3 sm:mt-4">
-          <div>
-            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Added by</label>
-            <Select value={role} onValueChange={(value) => setRole(value as 'HR' | 'Interviewer')}>
-              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base h-9 sm:h-10">
-                <SelectValue placeholder="Select role" />
-              </SelectTrigger>
-              <SelectContent position="popper" className="bg-white border-gray-200">
-                {roleOptions.map((opt) => (
-                  <SelectItem
-                    key={opt}
-                    value={opt}
-                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer text-sm sm:text-base"
-                  >
-                    {opt}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
+        {
+          user?.role === "hr" && (
+                      <div>
             <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">HR Remarks</label>
             <textarea
               value={hrRemarks}
               onChange={(e) => setHrRemarks(e.target.value)}
-              disabled={role !== 'HR'}
-              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base ${
-                role !== 'HR' ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''
-              }`}
+              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base`}
               placeholder="Enter HR remarks..."
             />
           </div>
 
-          <div>
+          )
+        }
+
+         {
+          user?.role === 'interviewer' && (
+            <div>
             <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Interviewer Remarks</label>
             <textarea
               value={interviewerRemarks}
               onChange={(e) => setInterviewerRemarks(e.target.value)}
-              disabled={role !== 'Interviewer'}
-              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base ${
-                role !== 'Interviewer' ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''
-              }`}
+              className={`w-full bg-white text-gray-900 border border-gray-300 rounded-lg p-2.5 sm:p-3 min-h-24 sm:min-h-28 resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base`}
               placeholder="Enter interviewer remarks..."
             />
           </div>
+          ) 
+         } 
 
           <div>
-            <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2">Status</label>
-            <Select value={status} onValueChange={(value) => setStatus(value as Candidate['status'])}>
-              <SelectTrigger className="w-full bg-white text-gray-900 border-gray-300 cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm sm:text-base h-9 sm:h-10">
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent position="popper" className="bg-white border-gray-200">
-                {statusOptions.map((opt) => (
-                  <SelectItem
-                    key={opt}
-                    value={opt}
-                    className="text-gray-900 focus:bg-blue-50 focus:text-blue-900 cursor-pointer text-sm sm:text-base"
-                  >
-                    {opt}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+  <label className="block text-gray-700 text-xs sm:text-sm font-semibold mb-3 sm:mb-4">Status</label>
+  <RadioGroup value={status} onValueChange={(value) => setStatus(value as Candidate['status'])}>
+    <div className="flex flex-wrap gap-3 sm:gap-4">
+      {statusOptions.map((opt) => (
+        <div
+          key={opt}
+          className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 transition-colors cursor-pointer"
+        >
+          <RadioGroupItem
+            value={opt}
+            id={opt}
+            className="border-2 border-gray-400 text-blue-600 focus:ring-2 focus:ring-blue-500"
+          />
+          <Label
+            htmlFor={opt}
+            className="text-xs sm:text-sm text-gray-900 font-medium cursor-pointer whitespace-nowrap"
+          >
+            {opt}
+          </Label>
+        </div>
+      ))}
+    </div>
+  </RadioGroup>
+</div>
+
 
           <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-200">
             <button

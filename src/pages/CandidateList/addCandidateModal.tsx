@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from '../../components/ui/select';
 import { Textarea } from '../../components/ui/textarea';
+import { useAuth } from '@/context/authContext';
 
 const candidateSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -39,7 +40,7 @@ const candidateSchema = z.object({
   graduationYear: z.coerce.number().min(1900).max(new Date().getFullYear()),
   currentPosition: z.string().min(1, 'Current position is required'),
   currentCompany: z.string().min(1, 'Current company is required'),
-  experienceYears: z.coerce.number().min(0),
+  experienceYears: z.coerce.number().min(0).max(100,'Experiance cannot be more than 100 years'),
   noticePeriod: z.string().min(1, 'Notice period is required'),
   reasonToSwitch: z.string().min(1, 'Reason to switch is required'),
   currentSalary: z.coerce.number().min(0),
@@ -64,6 +65,7 @@ interface Props {
 export default function AddCandidateModal({ open, onClose, onSubmit, candidate }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditMode = !!candidate;
+  const {user} = useAuth();
 
   const form = useForm<CandidateFormData>({
     resolver: zodResolver(candidateSchema) as any,
@@ -310,20 +312,29 @@ export default function AddCandidateModal({ open, onClose, onSubmit, candidate }
               )} />
 
             
-              <FormField control={form.control} name="hrRemarks" render={({ field }) => (
+             {
+              user?.role ==='hr' && (
+                <FormField control={form.control} name="hrRemarks" render={({ field }) => (
                 <FormItem className='col-span-full'>
                   <FormLabel className="font-semibold text-gray-700">HR Remarks (Optional)</FormLabel>
                   <FormControl><Textarea placeholder="HR notes..." {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
-              <FormField control={form.control} name="interviewerRemarks" render={({ field }) => (
+              )
+             }
+
+             {
+              user?.role === 'interviewer' && (
+                 <FormField control={form.control} name="interviewerRemarks" render={({ field }) => (
                 <FormItem className='col-span-full'>
                   <FormLabel className="font-semibold text-gray-700">Interviewer Remarks (Optional)</FormLabel>
                   <FormControl><Textarea placeholder="Interviewer notes..." {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
+              )
+             }
             
             <div className="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-6">
               <Button type="button" variant="outline" onClick={() => { form.reset(); onClose(); }} disabled={isSubmitting} className="border-gray-300 hover:bg-gray-50 cursor-pointer">

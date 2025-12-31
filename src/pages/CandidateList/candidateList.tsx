@@ -27,10 +27,10 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 
 const getStatusVariant = (status: string) => {
   switch (status) {
@@ -213,106 +213,117 @@ export default function CandidateList({
         </>
       )}
 
-      {/* max-h-[calc(100vh-230px)] */}
 
       {activeTab === "table" && (
-        <>
-          <div className="mt-4 rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white flex flex-col">
-            <div className="overflow-auto flex-1">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-600 hover:to-blue-700 border-none">
-                    <TableHead className="text-white font-semibold pl-4">
-                      Name
-                    </TableHead>
-                    <TableHead className="text-white font-semibold">
-                      Position
-                    </TableHead>
-                    <TableHead className="text-white font-semibold">
-                      Status
-                    </TableHead>
-                    <TableHead className="text-white font-semibold">
-                      Experience
-                    </TableHead>
-                    <TableHead className="text-white font-semibold text-right pr-4">
-                      Actions
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {candidates.map((candidate) => (
-                    <TableRow
-                      key={candidate._id}
-                      onClick={() => handleCardClick(candidate._id)}
-                      className="cursor-pointer hover:bg-blue-50 transition-colors border-gray-300"
-                    >
-                      <TableCell className="font-semibold text-gray-900 pl-4">
-                        {candidate.name}
-                      </TableCell>
-                      <TableCell className="text-gray-600">
-                        {candidate.appliedPosition}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          className="font-medium"
-                          variant={getStatusVariant(candidate.status)}
-                        >
-                          {candidate.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-gray-600">
-                        {candidate.experienceYears} years
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeleteId(candidate._id);
-                          }}
-                          className="text-red-500 hover:text-red-700 pr-4  p-2 rounded-lg transition-all cursor-pointer inline-flex"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onEdit(candidate);
-                          }}
-                          className="text-blue-500 hover:text-blue-700 p-2 rounded-lg transition-all cursor-pointer inline-flex"
-                        >
-                          <Pencil size={16} />
-                        </button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <Button
-                    key={page}
-                    variant={currentPage === page ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => onPageChange(page)}
-                    className={`cursor-pointer w-9 h-9 p-0 text-sm font-medium rounded-lg transition-all ${
-                      currentPage === page
-                        ? "bg-blue-600 text-white shadow-sm"
-                        : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
-                    }`}
+  <>
+    <div className="mt-4 rounded-xl border border-gray-200 shadow-sm bg-white overflow-hidden">
+      <div className="bg-linear-to-r from-blue-600 to-blue-700">
+        <table className="w-full">
+          <thead>
+            <tr className="border-none">
+              <th className="text-white font-semibold text-left pl-4 py-3 w-[20%]">
+                Name
+              </th>
+              <th className="text-white font-semibold text-left py-3 w-[25%]">
+                Position
+              </th>
+              <th className="text-white font-semibold text-left py-3 w-[20%]">
+                Status
+              </th>
+              <th className="text-white font-semibold text-left py-3 w-[20%]">
+                Experience
+              </th>
+              <th className="text-white font-semibold text-right pr-4 py-3 w-[15%]">
+                Actions
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <ScrollArea className="h-[calc(100vh-380px)] min-h-75">
+        <Table>
+          <colgroup>
+            <col className="w-[19%]" />
+            <col className="w-[25%]" />
+            <col className="w-[20%]" />
+            <col className="w-[20%]" />
+            <col className="w-[15%]" />
+          </colgroup>
+          <TableBody>
+            {candidates.map((candidate) => (
+              <TableRow
+                key={candidate._id}
+                onClick={() => handleCardClick(candidate._id)}
+                className="cursor-pointer hover:bg-blue-50 transition-colors border-gray-300"
+              >
+                <TableCell className="font-semibold text-gray-900 pl-4">
+                  {candidate.name}
+                </TableCell>
+                <TableCell className="text-gray-600">
+                  {candidate.appliedPosition}
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    className="font-medium"
+                    variant={getStatusVariant(candidate.status)}
                   >
-                    {page}
-                  </Button>
-                )
-              )}
-            </div>
-          )}
-        </>
-      )}
+                    {candidate.status}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-gray-600">
+                  {candidate.experienceYears} years
+                </TableCell>
+                <TableCell className="text-right">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteId(candidate._id);
+                    }}
+                    className="text-red-500 hover:text-red-700 pr-4 p-2 rounded-lg transition-all cursor-pointer inline-flex"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEdit(candidate);
+                    }}
+                    className="text-blue-500 hover:text-blue-700 p-2 rounded-lg transition-all cursor-pointer inline-flex"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollArea>
+    </div>
+
+    {totalPages > 1 && (
+      <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+          (page) => (
+            <Button
+              key={page}
+              variant={currentPage === page ? "default" : "outline"}
+              size="sm"
+              onClick={() => onPageChange(page)}
+              className={`cursor-pointer w-9 h-9 p-0 text-sm font-medium rounded-lg transition-all ${
+                currentPage === page
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
+              }`}
+            >
+              {page}
+            </Button>
+          )
+        )}
+      </div>
+    )}
+  </>
+)}
+
 
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent className="bg-white w-[90%] max-w-md rounded-xl border border-gray-200 shadow-xl">

@@ -57,36 +57,36 @@ export default function CandidateDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
       <div className="px-4 sm:px-8 lg:px-16">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 bg-white p-4 sm:p-6 rounded-xl border border-gray-200 shadow-sm">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/')}
-              className="text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <ArrowLeft size={20} />
-            </button>
-          </div>
+        <div className="flex items-center justify-between gap-4 bg-white p-3 rounded-xl border border-gray-200 shadow-sm mb-4 mt-4">
+          <button
+            onClick={() => navigate('/')}
+            className="text-gray-600 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-all flex items-center gap-2 cursor-pointer"
+          >
+            <ArrowLeft size={20} />
+          </button>
 
           <Button
             onClick={() => setRemarksOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white gap-2 shadow-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white gap-2 shadow-sm cursor-pointer"
           >
             <MessageCircle size={18} />
             Remarks & Status
           </Button>
         </div>
-
-        <CandidateInfo candidate={candidate} />
-
-        <RemarksWidget
-          candidate={candidate}
-          onUpdate={setCandidate}
-          open={remarksOpen}
-          onOpenChange={setRemarksOpen}
-        />
       </div>
+
+      <div className="flex-1 overflow-hidden px-4 sm:px-8 lg:px-16 pb-4">
+        <CandidateInfo candidate={candidate} />
+      </div>
+
+      <RemarksWidget
+        candidate={candidate}
+        onUpdate={setCandidate}
+        open={remarksOpen}
+        onOpenChange={setRemarksOpen}
+      />
     </div>
   );
 }
