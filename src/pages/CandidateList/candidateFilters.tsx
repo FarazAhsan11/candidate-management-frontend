@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import type { CandidateFiltersProps } from '@/types';
-
+import { useCandidateFilters } from '@/context/candidateListContext';
 
 const statuses = ['All', 'New', 'Screening', 'Interviewed', 'Pass', 'Fail', 'On Hold'];
 const experienceRanges = ['All', '0-2', '3-5', '6+'];
@@ -22,19 +22,8 @@ const sortOptions = [
   { value: 'experience-asc', label: 'Experience (Low-High)' },
 ];
 
-  function CandidateFilters({
-  search,
-  position,
-  status,
-  experience,
-  positions,
-  sortBy,
-  onSearchChange,
-  onPositionChange,
-  onStatusChange,
-  onExperienceChange,
-  onSortChange,
-}: CandidateFiltersProps) {
+function CandidateFilters({ positions }: CandidateFiltersProps) {
+  const { filters, dispatch } = useCandidateFilters();
   const [showFilters, setShowFilters] = useState(false);
   console.log("Rendered ", "CandidateFilters")
 
@@ -55,12 +44,12 @@ const sortOptions = [
           <>
             <Input
               placeholder="Search by name, email, position..."
-              value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
+              value={filters.search}
+              onChange={(e) => dispatch({ type: 'SET_SEARCH', payload: e.target.value })}
               className="w-full sm:flex-1 sm:max-w-xs border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
 
-            <Select value={position} onValueChange={onPositionChange}>
+            <Select value={filters.position} onValueChange={(value) => dispatch({ type: 'SET_POSITION', payload: value })}>
               <SelectTrigger className="w-full sm:w-40 border-gray-300 bg-white hover:border-blue-400 cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
                 <SelectValue placeholder="Position" />
               </SelectTrigger>
@@ -72,7 +61,7 @@ const sortOptions = [
               </SelectContent>
             </Select>
 
-            <Select value={status} onValueChange={onStatusChange}>
+            <Select value={filters.status} onValueChange={(value) => dispatch({ type: 'SET_STATUS', payload: value })}>
               <SelectTrigger className="w-full sm:w-40 border-gray-300 bg-white cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -83,7 +72,7 @@ const sortOptions = [
               </SelectContent>
             </Select>
 
-            <Select value={experience} onValueChange={onExperienceChange}>
+            <Select value={filters.experience} onValueChange={(value) => dispatch({ type: 'SET_EXPERIENCE', payload: value })}>
               <SelectTrigger className="w-full sm:w-40 border-gray-300 bg-white cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
                 <SelectValue placeholder="Experience" />
               </SelectTrigger>
@@ -96,7 +85,7 @@ const sortOptions = [
               </SelectContent>
             </Select>
 
-            <Select value={sortBy} onValueChange={onSortChange}>
+            <Select value={filters.sortBy} onValueChange={(value) => dispatch({ type: 'SET_SORT_BY', payload: value })}>
               <SelectTrigger className="w-full sm:w-44 border-gray-300 bg-white cursor-pointer hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -115,33 +104,4 @@ const sortOptions = [
   );
 }
 
-export default memo(CandidateFilters, (prevProps, nextProps) => {
-  if (
-    prevProps.search !== nextProps.search ||
-    prevProps.position !== nextProps.position ||
-    prevProps.status !== nextProps.status ||
-    prevProps.experience !== nextProps.experience ||
-    prevProps.sortBy !== nextProps.sortBy
-  ) {
-    return false; 
-  }
-
-  if (prevProps.positions.length !== nextProps.positions.length) {
-    return false; 
-  }
-
-  for (let i = 0; i < prevProps.positions.length; i++) {
-    if (prevProps.positions[i] !== nextProps.positions[i]) {
-      return false; 
-    }
-  }
-
- 
-  return (
-    prevProps.onSearchChange === nextProps.onSearchChange &&
-    prevProps.onPositionChange === nextProps.onPositionChange &&
-    prevProps.onStatusChange === nextProps.onStatusChange &&
-    prevProps.onExperienceChange === nextProps.onExperienceChange &&
-    prevProps.onSortChange === nextProps.onSortChange
-  );
-});
+export default memo(CandidateFilters);

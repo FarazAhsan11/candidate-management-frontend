@@ -32,3 +32,8 @@ export type {
   CandidateInfoProps,
   RemarksWidgetProps,
 } from './candidate-detail';
+
+export type {
+  FilterState,
+  FilterAction,
+} from './filter';

@@ -9,6 +9,7 @@ import AddCandidateModal from './addCandidateModal';
 import { Button } from '@/components/ui/button';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useAuth } from '@/context/authContext';
+import { CandidateListProvider, useCandidateFilters } from '@/context/candidateListContext';
 import { LogOut, User, Plus, KeyRound, MoreVertical } from 'lucide-react';
 import ChangePasswordModal from '@/components/change-password';
 import LoadingSpinner from '@/components/loading-spinner';
@@ -23,32 +24,32 @@ import {
 const ITEMS_PER_PAGE = 12;
 
 export default function CandidateListPage() {
+  return (
+    <CandidateListProvider>
+      <CandidateListPageContent />
+    </CandidateListProvider>
+  );
+}
+
+function CandidateListPageContent() {
   const { user, logout } = useAuth();
-  
-  // Server data
+  const { filters } = useCandidateFilters();
+
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState(1);
-  
-  // UI state
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
-  
-  // Filters & pagination
-  const [search, setSearch] = useState('');
-  const [position, setPosition] = useState('All');
-  const [status, setStatus] = useState('All');
-  const [experience, setExperience] = useState('All');
-  const [sortBy, setSortBy] = useState('date-desc');
-  const [currentPage, setCurrentPage] = useState(1);
 
-  // Edit Candidate State
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate|null>(null);
-  
-  const debouncedSearch = useDebounce(search, 500);
+
+  const debouncedSearch = useDebounce(filters.search, 500);
+
+  console.log("Rendered ", "CandidateListPageContent");
 
   const fetchCandidates = useCallback(async () => {
     setLoading(true);
@@ -56,14 +57,14 @@ export default function CandidateListPage() {
     try {
       const response: CandidateResponse = await candidateService.getAll({
         search: debouncedSearch || undefined,
-        position: position !== 'All' ? position : undefined,
-        status: status !== 'All' ? status : undefined,
-        experience: experience !== 'All' ? experience : undefined,
-        sortBy,
-        page: currentPage,
+        position: filters.position !== 'All' ? filters.position : undefined,
+        status: filters.status !== 'All' ? filters.status : undefined,
+        experience: filters.experience !== 'All' ? filters.experience : undefined,
+        sortBy: filters.sortBy,
+        page: filters.currentPage,
         limit: ITEMS_PER_PAGE,
       });
-      
+
       setCandidates(response.candidates);
       setPositions(response.positions);
       setTotalPages(response.pagination.totalPages);
@@ -72,17 +73,13 @@ export default function CandidateListPage() {
       console.error(err);
     } finally {
       setLoading(false);
-      setIsInitialLoad(false); 
+      setIsInitialLoad(false);
     }
-  }, [debouncedSearch, position, status, experience, sortBy, currentPage]);
+  }, [debouncedSearch, filters.position, filters.status, filters.experience, filters.sortBy, filters.currentPage]);
 
   useEffect(() => {
     fetchCandidates();
   }, [fetchCandidates]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [debouncedSearch, position, status, experience, sortBy]);
 
   const handleAddCandidate = useCallback(async (formData: FormData, candidateId?:string) => {
     try {
@@ -184,27 +181,12 @@ export default function CandidateListPage() {
         </div>
       </div>
 
-      <CandidateFilters
-        search={search}
-        position={position}
-        status={status}
-        experience={experience}
-        positions={positions}
-        sortBy={sortBy}
-        onSearchChange={setSearch}
-        onPositionChange={setPosition}
-        onStatusChange={setStatus}
-        onExperienceChange={setExperience}
-        onSortChange={setSortBy}
-      />
+      <CandidateFilters positions={positions} />
 
       <CandidateList
-        
         candidates={candidates}
         onDelete={handleDelete}
-        currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
         loading={loading}
         onEdit={handleEdit}
       />

@@ -30,6 +30,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useCandidateFilters } from "@/context/candidateListContext";
+import LoadingSpinner from "@/components/loading-spinner";
 
 
 const getStatusVariant = (status: string) => {
@@ -48,12 +50,11 @@ const getStatusVariant = (status: string) => {
 export default function CandidateList({
   candidates,
   onDelete,
-  currentPage,
   totalPages,
-  onPageChange,
   onEdit,
   loading = false,
 }: CandidateListProps) {
+  const { filters, dispatch } = useCandidateFilters();
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"cards" | "table">("table");
   const navigate = useNavigate();
@@ -72,16 +73,14 @@ export default function CandidateList({
 
   const handleTabChange = (value: string) => {
     setActiveTab(value as "cards" | "table");
-    onPageChange(1);
+    dispatch({ type: 'SET_CURRENT_PAGE', payload: 1 });
   };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 w-full flex items-start justify-center pt-20">
         <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-200">
-          <div className="flex items-center gap-3">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-          </div>
+          <LoadingSpinner />
         </div>
       </div>
     );
@@ -186,11 +185,11 @@ export default function CandidateList({
                 (page) => (
                   <Button
                     key={page}
-                    variant={currentPage === page ? "default" : "outline"}
+                    variant={filters.currentPage === page ? "default" : "outline"}
                     size="sm"
-                    onClick={() => onPageChange(page)}
+                    onClick={() => dispatch({ type: 'SET_CURRENT_PAGE', payload: page })}
                     className={`cursor-pointer w-9 h-9 p-0 text-sm font-medium rounded-lg transition-all ${
-                      currentPage === page
+                      filters.currentPage === page
                         ? "bg-blue-600 text-white shadow-sm"
                         : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
                     }`}
@@ -297,11 +296,11 @@ export default function CandidateList({
           (page) => (
             <Button
               key={page}
-              variant={currentPage === page ? "default" : "outline"}
+              variant={filters.currentPage === page ? "default" : "outline"}
               size="sm"
-              onClick={() => onPageChange(page)}
+              onClick={() => dispatch({ type: 'SET_CURRENT_PAGE', payload: page })}
               className={`cursor-pointer w-9 h-9 p-0 text-sm font-medium rounded-lg transition-all ${
-                currentPage === page
+                filters.currentPage === page
                   ? "bg-blue-600 text-white shadow-sm"
                   : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
               }`}

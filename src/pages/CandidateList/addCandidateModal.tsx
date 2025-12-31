@@ -347,13 +347,11 @@ type CandidateFormData = z.infer<typeof candidateSchema>;
 
 export default memo(AddCandidateModal, (prevProps, nextProps) => {
   if (!prevProps.open && !nextProps.open) {
-    return true; 
+    return true;
   }
-  
+
   return (
     prevProps.open === nextProps.open &&
-    prevProps.candidate === nextProps.candidate &&
-    prevProps.onClose === nextProps.onClose &&
-    prevProps.onSubmit === nextProps.onSubmit
+    prevProps.candidate === nextProps.candidate
   );
 });
