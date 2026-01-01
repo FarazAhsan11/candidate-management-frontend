@@ -34,6 +34,7 @@ export default function RemarksWidget({
   const [interviewerRemarks, setInterviewerRemarks] = useState(
     candidate.interviewerRemarks || ""
   );
+  console.log("Rendered RemarksWidget")
   const [status, setStatus] = useState(candidate.status);
   const [saving, setSaving] = useState(false);
   const { user } = useAuth();

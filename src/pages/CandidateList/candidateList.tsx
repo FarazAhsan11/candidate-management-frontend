@@ -58,7 +58,7 @@ export default function CandidateList({
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"cards" | "table">("table");
   const navigate = useNavigate();
-  console.log("Rendered ", "CandidateList")
+  console.log("Rendered CandidateList")
 
   const handleConfirmDelete = () => {
     if (deleteId) {

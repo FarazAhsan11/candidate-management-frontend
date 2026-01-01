@@ -30,6 +30,7 @@ export default function CandidateInfo({ candidate }: CandidateInfoProps) {
   const [pdfWidth, setPdfWidth] = useState(400);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const {user} = useAuth();
+  console.log('rendered candidateInfo')
 
   useEffect(() => {
     const updatePdfWidth = () => {
